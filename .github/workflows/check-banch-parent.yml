@@ -22,4 +22,4 @@ jobs:
         
       - name: Print branch contains
         shell: bash
-        run: echo ${{ steps.contains_commit.outputs.contains_commit }};
+        run: echo ${{ steps.parent_branch.outputs.parent_branch }};
