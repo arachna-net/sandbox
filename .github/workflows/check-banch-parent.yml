@@ -1,0 +1,20 @@
+name: Accumulate release
+
+on: [push]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Use git
+        uses: actions/checkout@v2
+
+      - name: Print branch contains
+        shell: bash
+        run: git reflog ${{ steps.extract_branch.outputs.branch }} | tail -n 1 | cut -d' ' -f1 | git branch main --contains
