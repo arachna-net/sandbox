@@ -18,4 +18,4 @@ jobs:
           fetch-depth: 0
           
       - name: Get parent branch
-        run: git fetch && echo $(git show-branch | grep '*')
+        run: git fetch && echo $(git show-branch -a | grep '*')
