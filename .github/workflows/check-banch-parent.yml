@@ -14,18 +14,12 @@ jobs:
 
       - name: Use git
         uses: actions/checkout@v2
-        with:
-          ref: ${{ steps.extract_branch.outputs.branch }}
 
       - name: Get commit number
-        id: exctract_commit
+        id: parent_branch
         shell: bash
-        run: echo "::set-output name=commit_hash::$(git reflog ${{ steps.extract_branch.outputs.branch }} | tail -n 1 | cut -d' ' -f1)"
-      
-      - name: Check if branch contains commit
-        id: contains_commit
-        run: echo ${{ steps.exctract_commit.outputs.commit_hash }} && echo "::set-output name=contains_commit::$(git branch origin/main --contains ${{ steps.exctract_commit.outputs.commit_hash }} | wc -l | sed -e 's/^[[:space:]]*//')"
-      
+        run: echo "::set-output name=parent_branch::$(git show-branch | grep '*' | grep -v ${{ steps.extract_branch.outputs.branch }} | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
+        
       - name: Print branch contains
         shell: bash
-        run: echo ${{ steps.contains_commit.outputs.contains_commit }} && if [ ${{ steps.contains_commit.outputs.contains_commit }} -eq 0 ]; then echo "Branch is not derived from master" && exit 1; else echo "Branch is derived from master"; fi;
+        run: echo ${{ steps.contains_commit.outputs.contains_commit }};
