@@ -18,4 +18,4 @@ jobs:
       - name: Get commit number
         id: parent_branch
         shell: bash
-        run: git show-branch | grep '*'
+        run: git show-branch
