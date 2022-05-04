@@ -14,8 +14,10 @@ jobs:
 
       - name: Use git
         uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.extract_branch.outputs.branch }}
 
       - name: Get commit number
         id: parent_branch
         shell: bash
-        run: echo "$(git show-branch | grep '*' | grep -v t5 | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
+        run: echo "$(git show-branch | grep '*' | grep -v ${{ steps.extract_branch.outputs.branch }} | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
