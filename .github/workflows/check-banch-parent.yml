@@ -17,7 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: echo "::set-output name=parent_branch::$(git show-branch | awk '/\*/' | awk '!/${{ steps.extract_branch.outputs.branch }}/')"
-        
-      - name: Get parent branch
-        run: echo ${{ steps.parent_branch.outputs.parent_branch }}
+        run: echo git show-branch | awk '/\*/' | awk '!/t5/'
