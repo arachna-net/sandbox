@@ -20,4 +20,13 @@ jobs:
           
       - name: Get parent branch
         id: get_parent
-        run: git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches="$(git branch --contains $commit | egrep -v '^\* ')"; if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs
+        run: |
+              git log --oneline \
+              | cut -f 1 -d' ' \
+              | (while read commit ; do
+                   other_branches="$(git branch --contains $commit | egrep -v '^\* ')"
+                   if [ -n "${other_branches}" ] ; then
+                     echo -e "${commit} is in:\n${other_branches}"
+                     break
+                   fi
+                 done)
