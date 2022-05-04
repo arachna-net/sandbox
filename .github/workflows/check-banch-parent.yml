@@ -22,7 +22,12 @@ jobs:
           fetch-depth: 0
           
       - name: Get parent branch
-        run: git fetch && echo $(git show-branch -a | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+        id: get_parent
+        run: git fetch && echo "::set-output name=parent::set$(git show-branch -a | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
+        
+      - name: Check parent branch
+        run: echo ${{ steps.get_parent.outputs.parent }} && if [ ${{ steps.get_parent.outputs.parent }} = "main" ]; then echo "Is derived from main" && exit 1; else echo "Is not derived from main" && exit 1; fi;
+  
   build:
     name: Build app
     runs-on: ubuntu-latest
