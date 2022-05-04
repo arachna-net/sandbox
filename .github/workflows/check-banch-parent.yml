@@ -3,7 +3,8 @@ name: Accumulate release
 on: [push]
     
 jobs:
-  build:
+  pre-checks:
+    name: Run pre checks
     runs-on: ubuntu-latest
     steps:
     
@@ -19,3 +20,11 @@ jobs:
           
       - name: Get parent branch
         run: git fetch && echo $(git show-branch -a | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+  build:
+    name: Build app
+    runs-on: ubuntu-latest
+    needs: [pre-checks]
+    steps:
+      
+      - name: Run build
+        run: echo "Building"
