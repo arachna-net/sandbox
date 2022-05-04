@@ -13,8 +13,4 @@ jobs:
         id: extract_branch
 
       - name: Use git
-        uses: actions/checkout@v2
-
-      - name: Get commit number
-        id: parent_branch
-        run: git checkout main && echo $(git show-branch)
+        run: git --version
