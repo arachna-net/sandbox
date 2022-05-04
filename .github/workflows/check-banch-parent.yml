@@ -17,4 +17,4 @@ jobs:
 
       - name: Print branch contains
         shell: bash
-        run: git reflog ${{ steps.extract_branch.outputs.branch }} | tail -n 1 | cut -d' ' -f1 | git branch main --contains
+        run: git branch main --contains $(git reflog ${{ steps.extract_branch.outputs.branch }} | tail -n 1 | cut -d' ' -f1)
