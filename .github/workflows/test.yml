@@ -1,0 +1,27 @@
+name: Accumulate release
+
+on: [push]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Use git
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.extract_branch.outputs.branch }}
+
+      - name: Get commit number
+        id: exctract_commit
+        shell: bash
+        run: echo "::set-output name=commit_hash::$(git reflog ${{ steps.extract_branch.outputs.branch }})"
+      
+      - name: Check if branch contains commit
+        id: contains_commit
+        run: echo ${{ steps.exctract_commit.outputs.commit_hash }}
