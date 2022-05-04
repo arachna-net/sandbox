@@ -20,4 +20,4 @@ jobs:
       - name: Get commit number
         id: parent_branch
         shell: bash
-        run: echo "$(git show-branch | grep '*' | grep -v ${{ steps.extract_branch.outputs.branch }} | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
+        run: echo "$(git show-branch | grep '*' | grep -v $(git rev-parse --abbrev-ref HEAD) | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
