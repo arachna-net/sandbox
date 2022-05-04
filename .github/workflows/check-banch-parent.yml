@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: echo $(git show-branch | sed '/*/ p' | grep -v "$(git rev-parse --abbrev-ref HEAD)")
+        run: echo $(git show-branch | sed '/*/ p' | grep -v t5)
