@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: echo $(git show-branch)
+        run: git checkout main && echo $(git show-branch)
