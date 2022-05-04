@@ -18,4 +18,4 @@ jobs:
           fetch-depth: 0
           
       - name: Get parent branch
-        run: echo $(git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+        run: echo $(git show-branch)
