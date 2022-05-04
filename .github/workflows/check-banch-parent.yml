@@ -17,4 +17,4 @@ jobs:
 
       - name: Print branch contains
         shell: bash
-        run: if [ `git branch main --contains $(git reflog feature/test2 | tail -n 1 | cut -d' ' -f1) | wc -l | sed -e 's/^[[:space:]]*//'` -eq 0 ]; then echo "Branch is not derived from master" && exit 1; else echo "Branch is derived from master"; fi;
+        run: if [ `git branch main --contains $(git reflog ${{ steps.extract_branch.outputs.branch }} | tail -n 1 | cut -d' ' -f1) | wc -l | sed -e 's/^[[:space:]]*//'` -eq 0 ]; then echo "Branch is not derived from master" && exit 1; else echo "Branch is derived from master"; fi;
