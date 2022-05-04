@@ -17,4 +17,7 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: git show-branch | awk '/\*/' | awk '!/${{ steps.extract_branch.outputs.branch }}/' | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
+        run: echo "::set-output name=parent_branch::$(git show-branch | awk '/\*/' | awk '!/${{ steps.extract_branch.outputs.branch }}/' | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
+        
+      - name: Get parent branch
+        run: echo ${{ steps.parent_branch.outputs.parent_branch }}
