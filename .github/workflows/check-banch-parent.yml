@@ -21,4 +21,4 @@ jobs:
       - name: Get parent branch
         id: get_parent
         shell: bash
-        run: git remote
+        run: sh .github/scripts/parent.sh
