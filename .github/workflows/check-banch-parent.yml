@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: git fetch && git pull && echo $(git show-branch | awk '/\*/' | awk '!/t5/')
+        run: git show-branch
