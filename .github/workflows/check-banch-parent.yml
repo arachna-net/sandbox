@@ -1,9 +1,6 @@
 name: Accumulate release
 
-on:
-  pull_request:
-    branches:
-      - main
+on: [push]
     
 jobs:
   pre-checks:
