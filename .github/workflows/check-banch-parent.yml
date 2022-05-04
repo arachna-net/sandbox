@@ -17,5 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        shell: bash
         run: grep '*' <<< $(git show-branch)
