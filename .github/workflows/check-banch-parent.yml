@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: echo $(git show-branch | awk '/\*/' | awk '!/${{ steps.extract_branch.outputs.branch }}/' | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+        run: git show-branch | awk '/\*/' | awk '!/${{ steps.extract_branch.outputs.branch }}/' | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
