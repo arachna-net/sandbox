@@ -1,4 +1,4 @@
-name: Accumulate release
+name: Check branch is derived from base
 
 on: [push]
     
