@@ -20,16 +20,4 @@ jobs:
           
       - name: Get parent branch
         id: get_parent
-        run: git fetch && echo "::set-output name=parent::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches="$(git branch --contains $commit | egrep -v '^\* ')"; if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs)"
-        
-      - name: Check parent branch
-        run: echo ${{ steps.get_parent.outputs.parent }} && if [ ${{ steps.get_parent.outputs.parent }} = "origin/main" ]; then echo "Is derived from main" && exit 1; else echo "Is not derived from main" && exit 1; fi;
-  
-  build:
-    name: Build app
-    runs-on: ubuntu-latest
-    needs: [pre-checks]
-    steps:
-      
-      - name: Run build
-        run: echo "Building"
+        run: git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches="$(git branch --contains $commit | egrep -v '^\* ')"; if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs
