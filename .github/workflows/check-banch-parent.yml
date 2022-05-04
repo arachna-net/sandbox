@@ -4,7 +4,7 @@ on: [push]
     
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     
       - name: Extract branch name
@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: echo $(git show-branch | awk '/\*/' | awk '!/t5/')
+        run: git fetch && git pull && echo $(git show-branch | awk '/\*/' | awk '!/t5/')
