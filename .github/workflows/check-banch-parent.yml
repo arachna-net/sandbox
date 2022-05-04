@@ -18,8 +18,4 @@ jobs:
       - name: Get commit number
         id: parent_branch
         shell: bash
-        run: echo "::set-output name=parent_branch::$(git show-branch | grep '*' | grep -v ${{ steps.extract_branch.outputs.branch }} | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')"
-        
-      - name: Print branch contains
-        shell: bash
-        run: echo ${{ steps.parent_branch.outputs.parent_branch }};
+        run: echo git show-branch | grep '*' | grep -v ${{ steps.extract_branch.outputs.branch }} | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'
