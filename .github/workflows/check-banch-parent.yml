@@ -17,4 +17,4 @@ jobs:
 
       - name: Get commit number
         id: parent_branch
-        run: git show-branch | awk '/\*/'
+        run: echo $(git show-branch | awk '/\*/')
