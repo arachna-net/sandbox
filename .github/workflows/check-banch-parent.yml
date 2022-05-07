@@ -20,4 +20,4 @@ jobs:
         run: git fetch && echo "::set-output name=parent::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs)"
 
       - name: Check parent branch
-        run: ${{ steps.get_parent.outputs.parent }} && if [ ${{ steps.get_parent.outputs.parent }} = "origin/whitelabel/base" ]; then echo "Is derived from main"; else echo "Is not derived from main" && exit 1; fi;
+        run: echo "parent branch is ${{ steps.get_parent.outputs.parent }}" && if [ ${{ steps.get_parent.outputs.parent }} = "origin/whitelabel/base" ]; then echo "Is derived from main"; else echo "Is not derived from main" && exit 1; fi;
