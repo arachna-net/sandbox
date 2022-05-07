@@ -9,4 +9,4 @@ jobs:
     steps:
       
       - name: Clone git repo
-        run: git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git
+        run: git clone https://${{ secrets.ACCES_TOKEN }}@github.com/arachna-net/sandbox.git
