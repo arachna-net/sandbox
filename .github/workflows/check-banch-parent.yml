@@ -14,6 +14,9 @@ jobs:
 
       - name: Clone git repo
         run: git clone https://${{ secrets.ACCES_TOKEN }}@github.com/arachna-net/sandbox.git .
+        
+      - name: Checkout to branch ${{ steps.extract_branch.outputs.branch }}
+        run: git checkout ${{ steps.extract_branch.outputs.branch }}
 
       - name: Get parent branch
         id: get_parent
