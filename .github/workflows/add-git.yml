@@ -1,0 +1,12 @@
+name: Add git
+
+on: [push]
+
+jobs:
+  add-git:
+    name: Add git
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Clone git repo
+        run: git clone https://${{ inputs.access_token }}@github.com/arachna-net/sandbox.git
