@@ -13,7 +13,7 @@ jobs:
         id: extract_branch
 
       - name: Clone git repo
-        run: git clone https://${{ secrets.ACCES_TOKEN }}@github.com/arachna-net/sandbox.git && ls
+        run: git clone https://${{ secrets.ACCES_TOKEN }}@github.com/arachna-net/sandbox.git . && ls
 
 #      - name: Get parent branch
 #        id: get_parent
