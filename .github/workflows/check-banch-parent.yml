@@ -36,4 +36,4 @@ jobs:
     needs: [check-parent-branch]
     steps:
       - name: Compile solution
-      - run: echo "build solution"
+        run: echo "build solution"
