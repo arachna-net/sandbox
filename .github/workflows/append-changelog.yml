@@ -1,0 +1,22 @@
+name: Append changelog
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+
+  append-changelog:
+    name: APPEND CHANGELOG
+    runs-on: ubuntu-latest
+    container: ghcr.io/miniscruff/changie
+    steps: 
+      - name: Add changes file
+        run: |
+          results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
+          for rec in $results
+          do
+              echo "$rec"
+          done
+      
