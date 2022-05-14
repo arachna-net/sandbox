@@ -11,6 +11,10 @@ jobs:
     name: APPEND CHANGELOG
     runs-on: ubuntu-latest
     steps: 
+    
+      - name: Clone git repo
+        run: git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
+
       - name: Add changes file
         run: |
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
