@@ -2,10 +2,22 @@ name: Check PR
 
 on:
   pull_request:
+    types: [opened, reopened, edited, ready_for_review]
     branches:
       - 'main'
     
 jobs:
+
+  check-pr-title-format:
+    name: CHECK PR TITLE FORMAT
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check pr title format
+        run : |
+          res=$(echo "[qwe] CH-1001 CH-2002 Fix some stuff" | sed -E 's/^\[(fix|feature|improvement)\] *([A-Za-z]+\-[0-9]+) *(.*)$/y/gi')
+          if [ $res = "y" ]; then echo "ok"; else echo "$res is a wronmg format. Format should be: [fix|feature|improvement] AA-000 PR description" && exit 1; fi;
+
   check-parent-branch:
     name: VERIFY BASE BRANCH ORIGIN
     runs-on: ubuntu-latest
@@ -23,7 +35,7 @@ jobs:
          git checkout ${{ github.event.pull_request.head.ref }}
       - name: Get parent branch for ${{ github.event.pull_request.head.ref }}
         id: get_parent_branch
-        run: echo "::set-output name=branch::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs)"
+        run: echo "::set-output name=branch::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;)echo «[Fix] CH-1001 CH-2002 Fix some stuff" | sed -E 's/^\[(fix|feature|improvement)\] *([A-Za-z]+\-[0-9]+) *(.*)$/y/gi' | xargs)"
          
 
       - name: Check parent branch is ${{ github.event.pull_request.base.ref }} for ${{ github.event.pull_request.head.ref }}
@@ -33,7 +45,7 @@ jobs:
   check-if-compile:
     name: CHECK COMPILING
     runs-on: ubuntu-latest
-    needs: [check-parent-branch]
+    needs: [check-parent-branch, check-pr-title-format]
     steps:
       - name: Compile solution
         run: echo "build solution"
