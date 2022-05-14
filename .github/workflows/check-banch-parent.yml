@@ -35,7 +35,7 @@ jobs:
          git checkout ${{ github.event.pull_request.head.ref }}
       - name: Get parent branch for ${{ github.event.pull_request.head.ref }}
         id: get_parent_branch
-        run: echo "::set-output name=branch::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;)echo «[Fix] CH-1001 CH-2002 Fix some stuff" | sed -E 's/^\[(fix|feature|improvement)\] *([A-Za-z]+\-[0-9]+) *(.*)$/y/gi' | xargs)"
+        run: echo "::set-output name=branch::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs)"
          
 
       - name: Check parent branch is ${{ github.event.pull_request.base.ref }} for ${{ github.event.pull_request.head.ref }}
