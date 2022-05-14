@@ -49,6 +49,3 @@ jobs:
     steps:
       - name: Compile solution
         run: echo "build solution"
-
-  append-changelog:
-    
