@@ -10,7 +10,6 @@ jobs:
   append-changelog:
     name: APPEND CHANGELOG
     runs-on: ubuntu-latest
-    container: ghcr.io/miniscruff/changie
     steps: 
       - name: Add changes file
         run: |
