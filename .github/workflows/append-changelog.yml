@@ -17,7 +17,7 @@ jobs:
 
       - name: Add changes file
         run: | 
-          git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+'| while read -r line ; do; file=".changes/unreleased/Fix-$(date +%Y%m%d)-$(date +%H%M%S%s).yaml"; touch $file; echo "kind: $(sed -E 's/^.*\[(fix|feature|improvement)\] *\[*([A-Za-z]+\-[0-9]+)\]* (.+)$/\1/gi' <<< $line)" >> $file; echo "body: $(sed -E 's/^.*\[(fix|feature|improvement)\] *\[*([A-Za-z]+\-[0-9]+)\]* (.+)$/\3/gi' <<< $line)" >> $file; echo "time: $(date +%Y-%m-%dT%H:%M:%S.%3NZ%:z)" >> $file; echo "custom:" >> $file; done
+          git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+'| while read -r line ; do; file=".changes/unreleased/Fix-$(date +%Y%m%d)-$(date +%H%M%S%s).yaml"; touch $file; done
       
       - name: Control
         run: ls .changes/unreleased
