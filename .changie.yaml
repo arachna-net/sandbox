@@ -1,0 +1,16 @@
+changesDir: .changes
+unreleasedDir: unreleased
+headerPath: header.tpl.md
+versionHeaderPath: ""
+versionFooterPath: ""
+changelogPath: CHANGELOG.md
+versionExt: md
+versionFormat: '## v{{.Version}}'
+kindFormat: '### {{.Kind}}'
+changeFormat: '* {{.Body}}'
+headerFormat: ""
+footerFormat: ""
+kinds:
+- label: Fix
+- label: Feature
+- label: Improvement
