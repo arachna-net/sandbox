@@ -30,7 +30,7 @@ jobs:
           else
             echo "Has no changes. Should stop";
             echo "::set-output name=should_continue::0"
-          fi < $results
+          fi <<< $results
 
           while read -r line
           do
