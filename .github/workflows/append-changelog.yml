@@ -28,8 +28,11 @@ jobs:
           git log
 
           echo "---------"
-          
+
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
+
+          echo "got results"
+          echo "Checking if should continue run"
 
           if read -r
           then
@@ -38,6 +41,7 @@ jobs:
           else
             echo "Has no changes. Should stop";
             echo "::set-output name=should_continue::0"
+            exit 0
           fi <<< $results
 
           while read -r line
