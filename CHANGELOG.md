@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v2.1.13
+Updates:
+  * fix: 1
+  * feature: 2
+
+### fix
+- [AA-003](https://bridgerpay.atlassian.net/browse/AA-003) Some fix
+### feature
+- [AA-002](https://bridgerpay.atlassian.net/browse/AA-002) Some other feature
+- [AA-001](https://bridgerpay.atlassian.net/browse/AA-001) Some feature
+
 ## v2.1.12
 Updates:
   * Fix: 1
