@@ -81,10 +81,24 @@ jobs:
         if: steps.changes.outputs.should_continue == 1
         run: |
           git tag -a $(changie latest) -m $(changie latest)
-
-      - name: Push changes and tag
-        if: steps.changes.outputs.should_continue == 1
+  
+  push-to-repo:
+    name: PUSH CHANGELOG AND TAG
+    needs: [append-changelog]
+    runs-on: ubuntu-latest
+  
+    steps:
+      
+      - name: Add checkout
+        uses: actions/checkout@v3
+      
+      - name: Add user info
         run: |
-          git push https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git main:main
-          git push --tags https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git main:main
-          
+          git config --global user.email "ilya@bridgerpay.com"
+          git config --global user.name "IlyaAtBridger"
+      
+      - name: Push changelog
+        run: git push origin
+
+      - name: Push tag
+        run: git push origin --tags
