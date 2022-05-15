@@ -30,8 +30,8 @@ jobs:
       - name: Checkout to ${{ github.event.pull_request.head.ref }}
         run: |
          git fetch
-         echo "Checing out to ${{ github.event.pull_request.base.ref }}"
-         git checkout ${{ github.event.pull_request.base.ref }}
+         echo "Checing out main"
+         git checkout main
          echo "Checing out to ${{ github.event.pull_request.head.ref }}"
          git checkout ${{ github.event.pull_request.head.ref }}
       - name: Get parent branch for ${{ github.event.pull_request.head.ref }}
@@ -39,10 +39,10 @@ jobs:
         run: echo "::set-output name=branch::$(git log --oneline | cut -f 1 -d' ' | (while read commit ; do other_branches=$(git branch --contains $commit | egrep -v '^\* '); if [ -n "${other_branches}" ] ; then echo -e "${other_branches}" && break; fi; done;) | xargs)"
          
 
-      - name: Check parent branch is ${{ github.event.pull_request.base.ref }} for ${{ github.event.pull_request.head.ref }}
+      - name: Check parent branch is main for ${{ github.event.pull_request.head.ref }}
         run: |
          echo "Parent branch found: ${{ steps.get_parent_branch.outputs.branch }}"
-         if [ ${{ steps.get_parent_branch.outputs.branch }} = ${{ github.event.pull_request.base.ref }} ]; then echo "${{ github.event.pull_request.head.ref }} is derived from ${{ github.event.pull_request.base.ref }}"; else echo "VERIFICATION FAILURE: ${{ github.event.pull_request.head.ref }} is not derived from ${{ github.event.pull_request.base.ref }}. Derived branch is: ${{ steps.get_parent_branch.outputs.branch }}" && exit 1; fi;
+         if [ ${{ steps.get_parent_branch.outputs.branch }} = main ]; then echo "${{ github.event.pull_request.head.ref }} is derived from main"; else echo "VERIFICATION FAILURE: ${{ github.event.pull_request.head.ref }} is not derived from main. Derived branch is: ${{ steps.get_parent_branch.outputs.branch }}" && exit 1; fi;
   check-if-compile:
     name: CHECK COMPILING
     runs-on: ubuntu-latest
