@@ -22,7 +22,7 @@ jobs:
         id: changes
         run: | 
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
-          echo "::set-output name=results::$results | cat"
+          echo "::set-output name=results::$($results | xargs)"
           while read -r line
           do
             file=".changes/unreleased/Fix-$(date +%Y%m%d)-$(date +%H%M%S%s).yaml"
@@ -57,6 +57,6 @@ jobs:
 
       - name: Create tag
         run: |
-          git tag -a $(changie latest) -m "${{ steps.changes.outputs.results }}"
+          git tag -a $(changie latest)
           echo ${{ steps.changes.outputs.mode }}
           
