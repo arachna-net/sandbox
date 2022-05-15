@@ -16,6 +16,7 @@ jobs:
         run: git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
 
       - name: Add changes file
+        id: changes
         run: | 
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
           while read -r line
@@ -30,6 +31,11 @@ jobs:
             cat $file
             sleep 1 
           done <<< $results
+          if grep -i -E '\[(feature|improvement)\]' $results; then 
+            echo "::set-output name=mode::minor"
+          else 
+            echo "::set-output name=mode::patch"
+          fi
       
       - name: Install changie
         run: |
@@ -38,4 +44,10 @@ jobs:
           wget https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_amd64.deb
           sudo dpkg -i changie_1.6.1_linux_amd64.deb
           changie --version
+      
+      - name: Merge changes
+        run: |
+          changie batch ${{ steps.changes.outputs.mode }}
+          changie merge
+          cat CHANGELOG.md
           
