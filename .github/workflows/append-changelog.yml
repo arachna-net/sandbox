@@ -13,13 +13,16 @@ jobs:
     steps: 
 
       - name: Clone git repo
-        run: git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
+        run: |
+          git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
+          git config --global user.email "automation@arachna.net"
+          git config --global user.name "Automation"
 
       - name: Add changes file
         id: changes
         run: | 
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
-          echo "::set-output name=results::$results"
+          echo "::set-output name=results::$results | cat"
           while read -r line
           do
             file=".changes/unreleased/Fix-$(date +%Y%m%d)-$(date +%H%M%S%s).yaml"
