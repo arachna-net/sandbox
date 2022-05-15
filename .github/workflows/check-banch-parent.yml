@@ -11,6 +11,7 @@ jobs:
 
   check-pr-title-format:
     name: CHECK PR TITLE FORMAT
+    if: github.event.pull_request.base.ref != "main" 
     runs-on: ubuntu-latest
     steps:
 

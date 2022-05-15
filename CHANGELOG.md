@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v2.1.12
+Updates:
+  * Fix: 1
+
+### Fix
+- [DEVOPS](https://bridgerpay.atlassian.net/browse/DEVOPS) Update workflow
+
 ## v2.1.11
 Updates:
   * Fix: 1
