@@ -17,7 +17,7 @@ jobs:
           git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
           git config --global user.email "ilya@bridgerpay.com"
           git config --global user.name "IlyaAtBridger"
-          git remote get-url origin
+          git remote set-url origin https://github.com/arachna-net/sandbox.git
 
       - name: Add changes file
         id: changes
