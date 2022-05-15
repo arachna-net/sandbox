@@ -35,6 +35,6 @@ jobs:
         run: |
           mkdir internal
           cd internal
-          wget https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_386.deb
-          sudo dpkg -i changie_1.6.1_linux_386.deb
+          wget https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_amd64.deb
+          sudo dpkg -i changie_1.6.1_linux_amd64.deb
           
