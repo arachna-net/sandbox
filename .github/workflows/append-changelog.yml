@@ -35,4 +35,4 @@ jobs:
         run: |
           mkdir internal
           curl https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_386.deb --output ./internal/changie.deb
-          dpkg -i ./internal/changie.deb
+          sudo dpkg -i ./internal/changie.deb
