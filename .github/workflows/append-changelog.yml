@@ -15,8 +15,6 @@ jobs:
       - name: Clone git repo
         run: |
           git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
-          git config --global user.email "ilya@bridgerpay.com"
-          git config --global user.name "IlyaAtBridger"
 
       - name: Add changes file
         id: changes
@@ -73,6 +71,14 @@ jobs:
           changie merge
           cat CHANGELOG.md
 
+      - name: Add checkout
+        uses: actions/checkout@v3
+      
+      - name: Add user info
+        run: |
+          git config --global user.email "ilya@bridgerpay.com"
+          git config --global user.name "IlyaAtBridger"
+
       - name: Commit changes to git
         if: steps.changes.outputs.should_continue == 1
         run: git commit -am "Added changelog for $(changie latest)"
@@ -81,14 +87,6 @@ jobs:
         if: steps.changes.outputs.should_continue == 1
         run: |
           git tag -a $(changie latest) -m $(changie latest)
-
-      - name: Add checkout
-        uses: actions/checkout@v3
-      
-      - name: Add user info
-        run: |
-          git config --global user.email "ilya@bridgerpay.com"
-          git config --global user.name "IlyaAtBridger"
       
       - name: Push changelog
         run: git push origin
