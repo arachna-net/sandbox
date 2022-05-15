@@ -18,6 +18,8 @@ jobs:
       - name: log
         run: |
           git fetch origin
+          git checkout main
+          git pull origin
           git log
       
       - name: Add changes file
