@@ -25,6 +25,10 @@ jobs:
       - name: Add changes file
         id: changes
         run: | 
+          git log
+
+          echo "---------"
+          
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
 
           if read -r
