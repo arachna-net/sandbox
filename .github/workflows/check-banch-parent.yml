@@ -47,7 +47,7 @@ jobs:
   check-if-compile:
     name: CHECK COMPILING
     runs-on: ubuntu-latest
-    needs: [check-parent-branch, check-pr-title-format]
+    needs: [check-parent-branch]
     steps:
       - name: Compile solution
         run: echo "build solution"
