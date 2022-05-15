@@ -7,7 +7,7 @@ changelogPath: CHANGELOG.md
 versionExt: md
 versionFormat: '## v{{.Version}}'
 kindFormat: '### {{.Kind}}'
-changeFormat: '*[{{.Custom.Issue}}](https://bridgerpay.atlassian.net/browse/{{.Custom.Issue}}) {{.Body}} (by {{.Custom.Author}})'
+changeFormat: '*[{{.Custom.Issue}}](https://bridgerpay.atlassian.net/browse/{{.Custom.Issue}}) {{.Body}}'
 headerFormat: |
   Updates:
   {{- range $kind := (kinds .Changes | uniq)}}
@@ -23,6 +23,4 @@ kinds:
 - label: Improvement
 custom:
 - key: Issue
-  type: string
-- key: Author
   type: string
