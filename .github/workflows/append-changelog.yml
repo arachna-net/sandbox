@@ -22,7 +22,16 @@ jobs:
         id: changes
         run: | 
           results=$(git log $(git describe --tags --abbrev=0)...HEAD | grep -E -i '.*\[(fix|feature|improvement)\] *\[*[A-Za-z]+\-[0-9]+\]* +.+')
-          echo "::set-output name=results::$($results | xargs)"
+
+          if read -r
+          then
+            echo "Has changes. Continue."
+            echo "::set-output name=should_continue::1"
+          else
+            echo "Has no changes. Should stop";
+            echo "::set-output name=should_continue::0"
+          fi < $results
+
           while read -r line
           do
             file=".changes/unreleased/Fix-$(date +%Y%m%d)-$(date +%H%M%S%s).yaml"
@@ -35,6 +44,7 @@ jobs:
             cat $file
             sleep 1 
           done <<< $results
+
           if grep -i -E '\[(feature|improvement)\]' $results; then 
             echo "::set-output name=mode::minor"
           else 
@@ -42,6 +52,7 @@ jobs:
           fi
       
       - name: Install changie
+        if: steps.changes.outputs.should_continue == 0
         run: |
           mkdir internal
           cd internal
@@ -50,13 +61,14 @@ jobs:
           changie --version
       
       - name: Merge changes
+        if: steps.changes.outputs.should_continue == 0
         run: |
           changie batch ${{ steps.changes.outputs.mode }}
           changie merge
           cat CHANGELOG.md
 
       - name: Create tag
+        if: steps.changes.outputs.should_continue == 0
         run: |
-          git tag -a $(changie latest) -m ${{ steps.changes.outputs.results }}
-          echo ${{ steps.changes.outputs.mode }}
+          git tag -a $(changie latest) -m $(changie latest)
           
