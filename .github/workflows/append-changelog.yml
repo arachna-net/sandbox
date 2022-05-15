@@ -34,5 +34,5 @@ jobs:
       - name: Install changie
         run: |
           mkdir internal
-          curl https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_386.deb --output ./internal/changie.deb
-          sudo dpkg -i ./internal/changie.deb
+          curl https://github.com/miniscruff/changie/releases/download/v1.6.1/changie_1.6.1_linux_386.tar.gz --output ./internal/changie.tar.gz
+          tar -tf ./internal/changie.tar.gz
