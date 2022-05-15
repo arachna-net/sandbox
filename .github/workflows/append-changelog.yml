@@ -42,8 +42,9 @@ jobs:
             echo "custom:" >> $file
             echo "  Issue: $(sed -E 's/^.*\[(fix|feature|improvement)\] *\[*([A-Za-z]+\-[0-9]+)\]* (.+)$/\2/gi' <<< $line)" >> $file
             
-            echo "----------"
+            echo ""
             echo "Added file File content".
+            echo "----------"
             cat $file
             echo "----------"
             echo ""
