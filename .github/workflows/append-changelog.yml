@@ -12,16 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
 
-      - name: Add checkout
-        uses: actions/checkout@v3
-
-      - name: log
+      - name: Clone git repo
         run: |
-          git fetch origin
-          git checkout main
-          git pull origin
-          git log
-      
+          git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
+
       - name: Add changes file
         id: changes
         run: | 
@@ -76,6 +70,9 @@ jobs:
           changie batch ${{ steps.changes.outputs.mode }}
           changie merge
           cat CHANGELOG.md
+
+      - name: Add checkout
+        uses: actions/checkout@v3
       
       - name: Add user info
         run: |
