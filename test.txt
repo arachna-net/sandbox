@@ -4,3 +4,4 @@ test string
 add line
 add line
 add line
+test string
