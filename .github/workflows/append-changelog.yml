@@ -17,7 +17,6 @@ jobs:
           git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
           git config --global user.email "ilya@bridgerpay.com"
           git config --global user.name "IlyaAtBridger"
-          git remote set-url origin https://github.com/arachna-net/sandbox.git
 
       - name: Add changes file
         id: changes
@@ -86,6 +85,6 @@ jobs:
       - name: Push changes and tag
         if: steps.changes.outputs.should_continue == 1
         run: |
-          git push origin
-          git push origin --tags
+          git push https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git main:main
+          git push --tags https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git main:main
           
