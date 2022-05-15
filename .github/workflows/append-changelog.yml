@@ -15,8 +15,8 @@ jobs:
       - name: Clone git repo
         run: |
           git clone https://${{ secrets.ACTIONS_ACCESS_TOKEN }}@github.com/arachna-net/sandbox.git .
-          git config --global user.email "automation@arachna.net"
-          git config --global user.name "Automation"
+          git config --global user.email "ilya@bridgerpay.com"
+          git config --global user.name "IlyaAtBridger"
 
       - name: Add changes file
         id: changes
